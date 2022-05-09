@@ -1,0 +1,8 @@
+.player-wrapper{
+    height:min-content;
+    margin: auto;
+    display: inline-block;
+}
+.react-player{
+    margin: 0;
+}
