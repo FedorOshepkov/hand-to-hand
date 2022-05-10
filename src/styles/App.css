@@ -8,6 +8,10 @@
   width: 100%;
 }
 
+.animated {
+  transition: all .4s cubic-bezier(.5, .35, .15, 1.4);
+}
+
 .navigation {  
   display: flex;
   gap: 10em;

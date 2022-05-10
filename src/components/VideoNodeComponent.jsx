@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactPlayer from 'react-player';
-import './VideoNodeComponent.css';
+import '../styles/VideoNodeComponent.css';
 
 function Video(videoAdress) {
   const { nodeDepth = 0, nodeWidth = 1 } = videoAdress;

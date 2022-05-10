@@ -6,7 +6,7 @@ import {
   Route,
 } from 'react-router-dom';
 import App from './App';
-import './index.css';
+import './styles/index.css';
 import About from './routes/about';
 import Join from './routes/join';
 import Field from './routes/field';
