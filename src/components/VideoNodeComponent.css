@@ -1,8 +1,10 @@
-.player-wrapper{
-    height:min-content;
+.player-wrapper {
+    flex-grow: 1;
+    height: min-content;
     margin: auto;
     display: inline-block;
 }
-.react-player{
+
+.react-player {
     margin: 0;
 }
