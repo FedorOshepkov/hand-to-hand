@@ -5,6 +5,7 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import './styles/App.css';
 import NavigationBar from './components/NavigationBar';
+import './TreeDataStructure';
 
 function App() {
   return (

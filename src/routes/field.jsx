@@ -53,7 +53,7 @@ export default function Field() {
         </div>
       </div>
       {/* <PlayButton className="button" /> */}
-      <navButton />
+      {/* <navButton /> */}
     </main>
   );
 }

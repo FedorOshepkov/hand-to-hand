@@ -118,26 +118,3 @@ class DataBaseTree {
   }
 };
 
-let testTree = new DataBaseTree();
-
-let root = new Node("root node");
-let first = new Node("first node");
-let second = new Node("second node");
-let third = new Node("second node");
-
-
-testTree.addNode(root);
-testTree.addNode(first, root);
-testTree.addNode(second, first);
-testTree.addNode(second, first);
-testTree.deleteById(2);
-testTree.addNode(third, first);
-//first.setId(5);
-console.log(first);
-console.log(testTree);
-
-
-//console.log(testTree.getByRoute([0, 1, 0]));
-//console.log(testRoot);
-//console.log(testTree);
-//console.log(testNode1);

@@ -1,6 +1,5 @@
 .App {
   width: 100%;
-  text-align: center;
   margin: 0 auto;
 }
 
@@ -12,7 +11,7 @@
   transition: all .4s cubic-bezier(.5, .35, .15, 1.4);
 }
 
-.navigation {  
+.navigation {
   display: flex;
   gap: 10em;
   justify-content: center;
@@ -23,7 +22,6 @@
   margin: 0 0 .5rem 0;
 
   width: 100%;
-
 }
 
 .navLink {
@@ -33,14 +31,104 @@
   color: white;
   background-color: rgb(45, 50, 62);
   font-family: inherit;
+  text-decoration: none;
 }
 
-.sorter {
+.react-player {
+  width: 100%;
+}
+
+.navLink:hover,
+button:hover,
+react-player:hover {
+  transform: scale(.9);
+}
+
+/* .sorter {
   width: 80%;
   margin: auto;
 
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-around;
   gap: 2rem;
+} */
+
+.border {
+  z-index: -10;
+  height: 90vh;
+  width: 100vw;
+  padding: 5vh 25vw 5vh 5vw;
+  box-sizing: border-box;
 }
+
+.child-slider {
+  z-index: -10;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row;
+  /* overflow: hidden;   */
+}
+
+
+.card {
+  width: 100%;
+  border: 1px solid gray;
+  /* position: absolute; */
+}
+
+
+.card-stack {
+  z-index: -10;
+  max-height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+
+  transition: transform 250ms ease-in-out;
+}
+
+.que {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+}
+
+.que-back {
+  height: 85%;
+  z-index: -3;
+  position: absolute;
+  transform: translate(-5%, 0%);
+}
+
+.que-mid {
+  height: 80%;
+  z-index: -2;
+  position: absolute;
+  transform: translate(-3%, 0%);
+  /* visibility: hidden; */
+}
+
+.que-front {
+  height: 75%;
+  z-index: -1;
+  position: absolute;
+  transform: translate(-2%, 0%);
+  /* visibility: hidden; */
+}
+
+.que-hidden {
+  visibility: hidden;
+
+  position: absolute;
+}
+
+.card-front {
+  position: relative;
+  transform: translate(0%, 0%);
+}
+
+/* .card-center {} */
