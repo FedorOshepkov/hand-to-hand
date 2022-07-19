@@ -1,100 +1,143 @@
 class Node {
   // interacts with pure data
-  constructor(parent = null, path) {
-    this.parent = parent;
+  constructor(name) {
+    this.nodeName = name;
     this.children = [];
-    this.sourceVideo = path;
-    this.placeholder = null;
-    this.index = [0];
-    if (parent != null) {
-      parent.addChild(this);
-      this.generateIndex();
-    }
+    //this.parent = parent;
+    //this.placeholder = null;
+    this.route = [0];
+    this.id = 0;
+    // if (parent != null) {
+    //   parent.addChild(this);
+    //   this.generateRoute();
+    // }
 
     //parent.addChild(this);
-    //this.index = generateIndex();
-    console.log(this);
+    //this.route = generateRoute();
   }
 
-  addChild(NewNode) {
+  addChild(NewNode) {                 //delete
     this.children.push(NewNode);
     NewNode.parent = this;
   }
-  removeChild(index) {
+  setId(id) {
+    this.id = id;
+  }
+
+  removeChild(index) {                //delete 
     Node.children.splice(index, 1);
   }
 
-  //Generate index array on node creation
-  generateIndex() {
-    this.index = [];
-    let indexFrom = this.parent;
-    let newIndexFrom = null;
+  //Generate route array on node creation
+  generateRoute() {
+    this.route = [];
+    let routeFrom = this.parent;
+    let newRouteFrom = null;
 
-    while (indexFrom != null) //till reach root node
+    while (routeFrom != null) //till reach root node
     {
-      this.index.unshift(indexFrom.children.length - 1);
-      newIndexFrom = indexFrom.parent;
-      indexFrom = newIndexFrom;
+      this.route.unshift(routeFrom.children.length - 1);
+      newRouteFrom = routeFrom.parent;
+      routeFrom = newRouteFrom;
     }
   }
 }
 
 class DataBaseTree {
   // interacts with Nodes only  
-
-  constructor(root = null) {
-    this.root = root;
-
-    if (root == null) { this.nodeNum = 0; }
-    else { this.nodeNum = 1; }
-
-    //this.indexMap = new Map(); //add custom method
-
-    console.log(this);
+  constructor() {
+    this.root = null;
+    this.idMap = new Map();
+    this.nodeNum = 0;
+    this.idNum = 0;
   }
 
-  // why head not root?
-  insertAtRoot(NewNode) {
-    if (NewNode.parent == null) {
-      NewNode.addChild(this.head);
-      this.root = NewNode;
-      this.nodeNum++;
+  addNode(childNode, parentNode = null) {
+    if (this.getIdByNode(childNode) != null) { return; }
+    if (this.root == null) {
+      this.root = childNode;
+    }
+
+    if (parentNode != null) {
+      parentNode.children.push(childNode);
+    }
+    childNode.parent = parentNode;
+    childNode.setId(this.idNum);
+    this.idMap.set(childNode.id, childNode);
+
+    this.nodeNum++;
+    this.idNum++;
+  }
+
+  deleteNode(node) {
+    if (node === null) { return null; }
+    let indexOfNode = node.parent.children.indexOf(node);
+    node.parent.children.splice(indexOfNode, 1);
+    let keyOfNode = this.getIdByNode(node);
+    this.idMap.delete(keyOfNode);
+    this.nodeNum--;
+    //this.idMap.delete(node.id); equal option
+  }
+
+  getIdByNode(node) {
+    for (let [key, value] of this.idMap.entries()) {
+      if (value === node)
+        return key;
     }
   }
-
-  getByIndex(index) {
-    if (index == null) {
+  getById(id) {
+    if (this.idMap == null) { return null; }
+    return this.idMap.get(id);
+  }
+  deleteById(id) {
+    let node = this.getById(id);
+    this.idMap.delete(id);
+    this.deleteNode(node);
+  }
+  getByRoute(route) {
+    if (route == null) {
       return this.root;
     }
-    if (Array.isArray(index) == true) {                              // index / id = [0, 1, 1, 2, ...] 
+    if (Array.isArray(route) === true) {                              // route / id = [0, 1, 1, 2, ...] 
       let currNode = this.root;
       let nextNode = null;
-      for (let i = 0; i < index.length; i++) {
-        if (currNode.children.length < index[i]) { return null; } // error id exceeds         
-        nextNode = currNode.children[index[i]];
+      if (currNode == null) { return null; }
+      if (currNode.children == null) { return null; }
+
+      for (let i = 0; i < route.length; i++) {
+        if (currNode.children.length < route[i]) { return null; } // error id exceeds         
+        nextNode = currNode.children[route[i]];
         currNode = nextNode;
       }
       return currNode;
     }
-    if (Array.isArray(index) == false) {
-      if (this.head.children.length < index) { return null; } // error id exceeds 
+    if (Array.isArray(route) === false) {
+      if (this.head.children.length < route) { return null; } // error id exceeds 
     }
 
   }
-
-  addNode(targetNode, NewNode) {
-    targetNode.children.push(NewNode);
-  }
 };
 
-let testRoot = new Node(null, "test path 1");
-let testTree = new DataBaseTree(testRoot);
-let testNode1 = new Node(testRoot, "test path 2");
-let testNode20 = new Node(testNode1, "test path 3");
-let testNode21 = new Node(testNode1, "test path 4");
-let testNode3 = new Node(testNode21, "test path 5");
+let testTree = new DataBaseTree();
 
-console.log(testTree.getByIndex([0,1,0]));
+let root = new Node("root node");
+let first = new Node("first node");
+let second = new Node("second node");
+let third = new Node("second node");
+
+
+testTree.addNode(root);
+testTree.addNode(first, root);
+testTree.addNode(second, first);
+testTree.addNode(second, first);
+testTree.deleteById(2);
+testTree.addNode(third, first);
+//first.setId(5);
+console.log(first);
+console.log(testTree);
+
+
+//console.log(testTree.getByRoute([0, 1, 0]));
 //console.log(testRoot);
 //console.log(testTree);
 //console.log(testNode1);
